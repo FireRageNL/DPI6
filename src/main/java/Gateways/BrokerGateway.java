@@ -86,11 +86,11 @@ public class BrokerGateway {
 		if(replies.size() == sentMessages.get(reply.getId())){
 			replies.sort(Comparator.comparing(BankInterestReply::getInterest).reversed());
 			LoanReply lReply = new LoanReply(reply.getInterest(),reply.getQuoteId(),reply.getId());
+			LoanRequest request = frame.getLoanRequest(reply.getId());
+			frame.add(request,reply);
 			SendMessage(lReply,QueueTypes.LoanReply.toString());
 			recievedMessages.remove(reply.getId());
 			sentMessages.remove(reply.getId());
-			LoanRequest request = frame.getLoanRequest(reply.getId(), reply.getQuoteId());
-			frame.add(request,reply);
 		}
 		else{
 			recievedMessages.put(reply.getId(),replies);
@@ -100,10 +100,10 @@ public class BrokerGateway {
 	else{
 		if(sentMessages.get(reply.getId()) == 1){
 			LoanReply lReply = new LoanReply(reply.getInterest(),reply.getQuoteId(),reply.getId());
+			LoanRequest request = frame.getLoanRequest(reply.getId());
+			frame.add(request,reply);
 			SendMessage(lReply,QueueTypes.LoanReply.toString());
 			sentMessages.remove(reply.getId());
-			LoanRequest request = frame.getLoanRequest(reply.getId(), reply.getQuoteId());
-			frame.add(request,reply);
 		}
 		else{
 			List<BankInterestReply> replies = new ArrayList<>();

@@ -110,10 +110,10 @@ public class LoanBrokerFrame extends JFrame {
 		}		
 	}
 
-	public LoanRequest getLoanRequest(int id, String bankId){
+	public LoanRequest getLoanRequest(int id){
 		for(int i =0; i < listModel.getSize(); i++){
 			JListLine rr = listModel.get(i);
-			if(rr.getBankRequest().getId() == id && rr.getBankRequest().getBankId()  == bankId){
+			if(rr.getBankRequest().getId() == id){
 				return rr.getLoanRequest();
 			}
 		}
